@@ -1,4 +1,4 @@
-package com.kabank.web.service;
+package com.kabank.web.service2;
 
 import java.util.Random;
 
