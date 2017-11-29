@@ -8,7 +8,8 @@ import com.kabank.web.service2.MemberService;
 public class Portal {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-		
+		String name = "";
+		String ssn = "";
 		while(true) {
 			System.out.println("[MENU] 0.종료 1.회원가입 2.계좌개설");
 			switch(scanner.nextInt()) {
@@ -30,9 +31,11 @@ public class Portal {
 						mem.getGender(), mem.getAge() );
 				break;
 			case 2:
-				AccountService account = new AccountService();
 				System.out.print("이름 입력 : ");
-				account.setName(scanner.next());
+				name = scanner.next();
+				System.out.print("주민번호 입력('-'포함) : ");
+				ssn = scanner.next();
+				AccountService account = new AccountService(name, ssn);
 				System.out.println(account.getName() + "님의 계좌가 " 
 				+ account.createAccount(scanner) + "로 개설 되었습니다");
 				break;

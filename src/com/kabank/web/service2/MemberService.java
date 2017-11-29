@@ -3,19 +3,18 @@ package com.kabank.web.service2;
 import java.util.Calendar;
 
 public class MemberService {
-	
-	String id;
-	String name;
-	String ssn;
-	String gender;
-	int age;
+	private String id;
+	private String name;
+	private String ssn;
+	private String gender;
+	private int age;
 	
 	public MemberService(){
-		id = "101";
-		name = "";
-		ssn = "";
-		gender = "";
-		age = 0;
+		this.id = "";
+		this.name = "";
+		this.ssn = "";
+		this.gender = "";
+		this.age = 0;
 	}
 	
 	public void join(String ssn) {
@@ -31,12 +30,12 @@ public class MemberService {
 		} else {
 			gender = "누구냐넌";
 		}
-		c1 = cl.get(cl.YEAR);
+		c1 = cl.get(Calendar.YEAR);
 		temp = ssn.charAt(0);
 		res += temp;
 		temp = ssn.charAt(1);
 		res += temp;
-		if(res.charAt(0) == '0') {
+		if(temp == '3' || temp == '4') {
 			res = "20" + res;
 		} else {
 			res = "19" + res;
