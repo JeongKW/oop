@@ -36,9 +36,9 @@ public class Portal {
 				AccountService account = new AccountService();
 				System.out.print("이름 입력 : ");
 				account.setName(scanner.next());
-				account.setAcc();
+				account.setAccountNum();
 				System.out.println(account.getName() + "님의 계좌가 " 
-				+ account.getAcc() + "로 개설 되었습니다");
+				+ account.getAccountNum() + "로 개설 되었습니다");
 				break;
 			}
 		}

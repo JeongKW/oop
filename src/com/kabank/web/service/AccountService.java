@@ -4,10 +4,10 @@ import java.util.Random;
 
 public class AccountService {
 	private String name;
-	private int acc;
+	private int accountNum;
 	public AccountService() {
 		name = "";
-		acc = 0;
+		accountNum = 0;
 	}
 	public String getName() {
 		return name;
@@ -15,17 +15,17 @@ public class AccountService {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getAcc() {
-		return acc;
+	public int getAccountNum() {
+		return accountNum;
 	}
-	public void setAcc() {
+	public void setAccountNum() {
 		Random gen = new Random();
 		int accNum = 0;
 		boolean flag = true;
 		while(flag) {
 			accNum = gen.nextInt(1000000);
 			if(accNum > 100000) {
-				acc = accNum;
+				accountNum = accNum;
 				flag = false;
 			} else {
 				flag = true;
