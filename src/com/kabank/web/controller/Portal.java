@@ -1,47 +1,71 @@
 package com.kabank.web.controller;
 
-import java.util.Scanner;
+import javax.swing.JOptionPane;
 
-import com.kabank.bean.AccountBean;
 import com.kabank.bean.MemberBean;
-import com.kabank.web.service.MemberService;
+import com.kabank.web.serviceImpl.MemberServiceImpl;
 
 public class Portal {
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		int i = 0;
+		MemberServiceImpl memberService = new MemberServiceImpl();
+		MemberBean member = null;
 		while(true) {
-			System.out.println("[MENU] 0.종료 1.회원가입 2.계좌개설");
-			switch(scanner.nextInt()) {
-			case 0:
-				System.out.println("종료");
+			switch(JOptionPane.showInputDialog(
+					"[MENU] 0.종료 1.회원가입 2.계좌개설\n"
+					+ " 3.총회원수 4.회원목록 5.로그인 6.회원검색\n"
+					+ " 7.PW 수정 8.회원탈퇴 9.회원전체삭제")) {
+			case "0":
+				JOptionPane.showMessageDialog(null, "종료");
 				return;
-			case 1 :
-				MemberBean memberBean = new MemberBean();
-				MemberService memberService = new MemberService();
-				System.out.print("이름 입력 : ");
-				memberBean.setName(scanner.next());
-				System.out.print("주민번호 입력('-'포함) : ");
-				memberBean.setSsn(scanner.next());
-				memberBean.setCustomNum(memberService.createCustomNum(i));
-				memberBean.setGender(memberService.findGender(memberBean.getSsn()));
-				memberBean.setAge(memberService.findAge(memberBean.getSsn()));
-				System.out.printf("[고객번호] %d\n"
-						+ "[이름]  %s\n" 
-						+ "[주민번호] %s\n"
-						+ "[성별]  %s\n"
-						+ "[나이]  %s\n", 
-						memberBean.getCustomNum(), memberBean.getName(),
-						memberBean.getSsn(), memberBean.getGender()
-						, memberBean.getAge() );
-				i++;
+			case "1":
+				String spec = JOptionPane.showInputDialog("이름/주민번호/id/pw");
+				String[] dummy = {
+					"홍길동/800101-123456/hong/1",
+					"김유신/900203-134567/kim/1",
+					"이이/920304-189456/lee/1",
+					"유관순/850910-223456/you/1",
+					"신사임당/950101-273456/shin/1"
+				};
+				for(int i = 0; i < dummy.length; i++) {
+					String[] arr = dummy[i].split("/");
+					member = new MemberBean();
+					member.setName(arr[0]);
+					member.setSsn(arr[1]);
+					member.setId(arr[2]);
+					member.setPw(arr[3]);
+					member.setCustomNum(memberService.createCustomNum());
+					member.setGender(memberService.findGender(member.getSsn()));
+					member.setAge(memberService.findAge(member.getSsn()));
+					memberService.addMember(member);
+				}
 				break;
-			case 2:
-				AccountBean account = new AccountBean();
-				System.out.print("이름 입력 : ");
-				account.setName(scanner.next());
-				account.setAccountNum();
-				System.out.println(account.getName() + "님의 계좌가 " + account.getAccountNum() + "로 개설 되었습니다");
+			case "2":
+				break;
+			case "3":
+				JOptionPane.showMessageDialog(null, "총 가입 수는 " + memberService.count() + "입니다");
+				break;
+			case "4":
+				JOptionPane.showMessageDialog(null, memberService.list());
+				break;
+			case "5":
+				String login = JOptionPane.showInputDialog("ID/PW");
+				String[] arr = login.split("/");
+				member = new MemberBean();
+				member.setId(arr[0]);
+				member.setPw(arr[1]);
+				JOptionPane.showMessageDialog(null, memberService.login(member));
+				break;
+			case "6":
+				JOptionPane.showMessageDialog(null, memberService.searchMember(JOptionPane.showInputDialog("ID ??")));;
+			case "7":
+				
+				break;
+			case "8":
+				memberService.delete(JOptionPane.showInputDialog("삭제할 id"));
+				break;
+			case "9":
+				memberService.memberAllDelete();
+				JOptionPane.showMessageDialog(null, "총 가입 수는 " + memberService.count());
 				break;
 			}
 		}

@@ -1,6 +1,5 @@
 package com.kabank.web.service;
 
+public interface AccountService {
 
-public class AccountService {
-	
 }
